@@ -38,12 +38,12 @@ declare global {
     render(el: HTMLElement, data: any, options: WebTreeMapOptions): void;
     sort(data: any): void;
   };
-  var TreemapUtil: typeof _TreemapUtil;
-  var TextEncoding: typeof _TextEncoding;
-  var Logger: typeof _Logger;
-  var DragAndDrop: typeof _DragAndDrop;
-  var GithubApi: typeof _GithubApi;
-  var FirebaseAuth: typeof _FirebaseAuth;
+  // var TreemapUtil: typeof _TreemapUtil;
+  // var TextEncoding: typeof _TextEncoding;
+  // var Logger: typeof _Logger;
+  // var DragAndDrop: typeof _DragAndDrop;
+  // var GithubApi: typeof _GithubApi;
+  // var FirebaseAuth: typeof _FirebaseAuth;
   var firebase: Required<FirebaseNamespace>;
   var idbKeyval: typeof import('idb-keyval');
   var strings: Record<LH.Locale, import('../../lighthouse-core/lib/i18n/locales').LhlMessages>;
