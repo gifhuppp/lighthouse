@@ -6,6 +6,6 @@
   },
   "include": [
     "./standalone-flow.tsx",
-    "../../types"
+    "../types"
   ],
 }

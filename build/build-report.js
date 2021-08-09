@@ -36,11 +36,11 @@ async function buildStandaloneReport() {
 
 async function buildStandaloneFlowReport() {
   const bundle = await rollup.rollup({
-    input: 'report/clients/standalone-flow.tsx',
+    input: 'flow-report/standalone-flow.tsx',
     plugins: [
       nodeResolve(),
       commonjs(),
-      typescript({tsconfig: 'report/clients/tsconfig.json'}),
+      typescript({tsconfig: 'flow-report/tsconfig.json'}),
       terser(),
     ],
   });
