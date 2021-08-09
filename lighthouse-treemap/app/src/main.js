@@ -9,7 +9,7 @@
 
 /* eslint-env browser */
 
-/* globals I18n webtreemap strings Tabulator Cell Row */
+/* globals webtreemap strings Tabulator Cell Row */
 
 import 'idb-keyval/dist/idb-keyval-min.js';
 import 'event-target-shim/umd';
@@ -20,11 +20,11 @@ import 'tabulator-tables/dist/js/modules/format.js';
 import 'tabulator-tables/dist/js/modules/resize_columns.js';
 import 'pako/dist/pako_inflate.js';
 import {TreemapUtil} from './util.js';
-import DragAndDrop from '../../../lighthouse-viewer/app/src/drag-and-drop.js';
-import GithubApi from '../../../lighthouse-viewer/app/src/github-api.js';
-import GithubApi from '../../../lighthouse-viewer/app/src/github-api.js';
-import {Logger} from '../../../report/renderer/logger.js';
+import {DragAndDrop} from '../../../lighthouse-viewer/app/src/drag-and-drop.js';
+import {GithubApi} from '../../../lighthouse-viewer/app/src/github-api.js';
+import {I18n} from '../../../report/renderer/i18n.js';
 import {TextEncoding} from '../../../report/renderer/text-encoding.js';
+import {Logger} from '../../../report/renderer/logger.js';
 
 const DUPLICATED_MODULES_IGNORE_THRESHOLD = 1024;
 const DUPLICATED_MODULES_IGNORE_ROOT_RATIO = 0.01;

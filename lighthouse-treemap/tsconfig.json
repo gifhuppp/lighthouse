@@ -6,6 +6,6 @@
     "../types",
   ],
   "compilerOptions": {
-    "esModuleInterop": true
-  }
+    "esModuleInterop": true,
+  },
 }
