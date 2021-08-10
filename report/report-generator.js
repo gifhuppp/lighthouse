@@ -28,7 +28,7 @@ class ReportGenerator {
   }
 
   /**
-   * @param {Object} object
+   * @param {unknown} object
    * @return {string}
    */
   static sanitizeJson(object) {
@@ -39,7 +39,7 @@ class ReportGenerator {
   }
 
   /**
-   * Returns the standaloe report HTML as a string with the report JSON and renderer JS inlined.
+   * Returns the standalone report HTML as a string with the report JSON and renderer JS inlined.
    * @param {LH.Result} lhr
    * @return {string}
    */
