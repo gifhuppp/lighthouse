@@ -1,6 +1,6 @@
 {
   "name": "lighthouse",
-  "version": "8.1.0",
+  "version": "8.2.0",
   "description": "Automated auditing, performance metrics, and best practices for the web.",
   "main": "./lighthouse-core/index.js",
   "bin": {
@@ -23,7 +23,7 @@
     "build-smokehouse-bundle": "node ./build/build-smokehouse-bundle.js",
     "build-lr": "yarn reset-link && node ./build/build-lightrider-bundles.js",
     "build-pack": "bash build/build-pack.sh",
-    "build-report": "node build/build-report.js",
+    "build-report": "node build/build-report-components.js && yarn eslint --fix report/renderer/components.js && node build/build-report.js",
     "build-dist-reports": "yarn build-report && node lighthouse-core/scripts/build-report-for-autodeployment.js",
     "build-treemap": "node ./build/build-treemap.js",
     "build-viewer": "node ./build/build-viewer.js",
@@ -48,7 +48,7 @@
     "unit-cli": "yarn jest \"lighthouse-cli/\"",
     "unit-report": "yarn jest \"report/\"",
     "unit-treemap": "jest \"lighthouse-treemap/.*-test.js\"",
-    "unit-viewer": "jest \"lighthouse-viewer/.*-test.js\"",
+    "unit-viewer": "yarn jest \"lighthouse-viewer/.*-test.js\"",
     "unit": "yarn unit-core && yarn unit-cli && yarn unit-report && yarn unit-viewer && yarn unit-treemap",
     "unit:ci": "NODE_OPTIONS=--max-old-space-size=8192 npm run unit-core -- --ci && npm run unit-cli -- --ci && npm run unit-report -- --ci && npm run unit-viewer -- --ci && npm run unit-treemap -- --ci",
     "core-unit": "yarn unit-core",
@@ -94,6 +94,7 @@
     "@firebase/app-types": "0.3.1",
     "@firebase/auth-types": "0.3.2",
     "@firebase/util": "0.2.1",
+    "@rollup/plugin-node-resolve": "^13.0.4",
     "@types/archiver": "^2.1.2",
     "@types/browserify": "^12.0.36",
     "@types/chrome": "^0.0.60",
@@ -106,6 +107,7 @@
     "@types/google.analytics": "0.0.39",
     "@types/jest": "^24.0.9",
     "@types/jpeg-js": "^0.3.0",
+    "@types/jsdom": "^16.2.13",
     "@types/lodash.clonedeep": "^4.5.6",
     "@types/lodash.get": "^4.4.6",
     "@types/lodash.isequal": "^4.5.2",
@@ -169,7 +171,7 @@
     "axe-core": "4.2.3",
     "chrome-launcher": "^0.14.0",
     "configstore": "^5.0.1",
-    "csp_evaluator": "^1.0.1",
+    "csp_evaluator": "1.0.4",
     "cssstyle": "1.2.1",
     "enquirer": "^2.3.6",
     "http-link-header": "^0.8.0",
@@ -207,22 +209,6 @@
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/GoogleChrome/lighthouse/issues"
-  },
-  "nyc": {
-    "reporter": [
-      "text-summary"
-    ],
-    "tempDirectory": "./coverage",
-    "include": [
-      "**/lighthouse-core/**/*.js",
-      "**/lighthouse-cli/**/*.js",
-      "**/lighthouse-viewer/**/*.js"
-    ],
-    "exclude": [
-      "**/third_party/**",
-      "**/test/",
-      "**/scripts/"
-    ]
   },
   "homepage": "https://github.com/GoogleChrome/lighthouse#readme"
 }

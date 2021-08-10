@@ -45,12 +45,14 @@ class ReportGenerator {
    */
   static generateReportHtml(lhr) {
     const sanitizedJson = ReportGenerator.sanitizeJson(lhr);
+    // terser does its own sanitization, but keep this basic replace for when
+    // we want to generate a report without minification.
+    const sanitizedJavascript = htmlReportAssets.REPORT_JAVASCRIPT.replace(/<\//g, '\\u003c/');
 
     return ReportGenerator.replaceStrings(htmlReportAssets.REPORT_TEMPLATE, [
       {search: '%%LIGHTHOUSE_JSON%%', replacement: sanitizedJson},
-      {search: '%%LIGHTHOUSE_JAVASCRIPT%%', replacement: htmlReportAssets.REPORT_JAVASCRIPT},
+      {search: '%%LIGHTHOUSE_JAVASCRIPT%%', replacement: sanitizedJavascript},
       {search: '/*%%LIGHTHOUSE_CSS%%*/', replacement: htmlReportAssets.REPORT_CSS},
-      {search: '%%LIGHTHOUSE_TEMPLATES%%', replacement: htmlReportAssets.REPORT_TEMPLATES},
     ]);
   }
 
