@@ -51,7 +51,7 @@ const license = `/*
  * @property {Source} html
  * @property {Record<string, string>=} htmlReplacements Needle -> Replacement mapping, used on html source.
  * @property {Source[]} stylesheets
- * @property {Source[]|Source} javascripts
+ * @property {Source[]} javascripts
  * @property {Array<{path: string}>} assets List of paths to copy. Glob-able, maintains directory structure.
  */
 
@@ -177,22 +177,6 @@ class GhPagesApp {
   }
 
   async _compileJs() {
-    if (!Array.isArray(this.opts.javascripts)) {
-      const input = typeof this.opts.javascripts === 'string' ?
-        this.opts.javascripts :
-        this.opts.javascripts.path;
-      const bundle = await rollup.rollup({
-        input: path.join(this.opts.appDir, input),
-        plugins: [
-          nodeResolve(),
-          commonjs(),
-          // rollupTerser(),
-        ],
-      });
-      const {output} = await bundle.generate({format: 'iife'});
-      return output[0].code;
-    }
-
     // Current Lighthouse version as a global variable.
     const versionJs = `window.LH_CURRENT_VERSION = '${lighthousePackage.version}';`;
 
