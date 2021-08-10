@@ -18,11 +18,11 @@ const {LH_ROOT} = require('../root.js');
  */
 function buildStrings() {
   const locales = require('../lighthouse-core/lib/i18n/locales.js');
-  // TODO(esmodules): use simple import when build/ is esm.
-  // const UIStrings = require(
+  // TODO(esmodules): use dynamic import when build/ is esm.
+  // const {UIStrings} = await import(
   //   // Prevent `tsc -p .` from evaluating util.js using core types, it is already typchecked by `tsc -p lighthouse-treemap`.
   //   '' + '../lighthouse-treemap/app/src/util.js'
-  // ).UIStrings;
+  // );
   const {UIStrings} = eval(
     fs.readFileSync(LH_ROOT + '/lighthouse-treemap/app/src/util.js', 'utf-8')
       .replace('export ', '') + '\nmodule.exports = TreemapUtil;'
