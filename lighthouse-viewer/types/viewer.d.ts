@@ -24,11 +24,10 @@ declare global {
   var firebase: Required<FirebaseNamespace>;
 
   interface Window {
-    logger: _Logger;
     viewer: _LighthouseReportViewer;
     ga: UniversalAnalytics.ga;
 
-    // Inserted by viewer gulpfile build.
+    // Inserted by viewer build.
     LH_CURRENT_VERSION: string;
   }
 }
