@@ -16,7 +16,7 @@ import {useState} from 'preact/hooks';
 /* global window document */
 
 // eslint-disable-next-line no-undef
-const Report:FunctionComponent<{lhr: LH.Result}> = ({lhr}) => {
+const Report: FunctionComponent<{lhr: LH.Result}> = ({lhr}) => {
   // TODO(FR-COMPAT): Render an actual report here.
   return (
     <div>
@@ -31,7 +31,7 @@ const Report:FunctionComponent<{lhr: LH.Result}> = ({lhr}) => {
 };
 
 // eslint-disable-next-line no-undef
-const App:FunctionComponent<{flow: LH.FlowResult}> = ({flow}) => {
+const App: FunctionComponent<{flow: LH.FlowResult}> = ({flow}) => {
   const [currentLhr, setCurrentLhr] = useState(0);
   return (
     <>
