@@ -59,16 +59,6 @@ async function run() {
       {path: 'styles/*'},
     ],
     javascripts: [
-      /* eslint-disable max-len */
-      fs.readFileSync(require.resolve('idb-keyval/dist/idb-keyval-min.js'), 'utf8'),
-      fs.readFileSync(require.resolve('event-target-shim/umd'), 'utf8'),
-      fs.readFileSync(require.resolve('webtreemap-cdt'), 'utf8'),
-      fs.readFileSync(require.resolve('tabulator-tables/dist/js/tabulator_core.js'), 'utf8'),
-      fs.readFileSync(require.resolve('tabulator-tables/dist/js/modules/sort.js'), 'utf8'),
-      fs.readFileSync(require.resolve('tabulator-tables/dist/js/modules/format.js'), 'utf8'),
-      fs.readFileSync(require.resolve('tabulator-tables/dist/js/modules/resize_columns.js'), 'utf8'),
-      fs.readFileSync(require.resolve('pako/dist/pako_inflate.js'), 'utf-8'),
-      /* eslint-enable max-len */
       buildStrings(),
       {path: 'src/main.js', rollup: true},
     ],
