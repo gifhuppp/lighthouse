@@ -55,7 +55,6 @@
     "cli-unit": "yarn unit-cli",
     "viewer-unit": "yarn unit-viewer",
     "watch": "yarn unit-core --watch",
-    "watch:report": "find report | entr yarn build-dist-reports",
     "unit:cicoverage": "yarn c8 --all yarn unit:ci",
     "coverage": "yarn unit:cicoverage && c8 report --reporter html",
     "coverage:smoke": "yarn c8 yarn smoke -j=1 && c8 report --reporter html",
