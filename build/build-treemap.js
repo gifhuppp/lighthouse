@@ -7,7 +7,6 @@
 
 /** @typedef {import('../lighthouse-core/lib/i18n/locales').LhlMessages} LhlMessages */
 
-const fs = require('fs');
 const {buildTreemapReport} = require('./build-report.js');
 const GhPagesApp = require('./gh-pages-app.js');
 const {LH_ROOT} = require('../root.js');
@@ -53,21 +52,19 @@ async function run() {
     appDir: `${LH_ROOT}/lighthouse-treemap/app`,
     html: {path: 'index.html'},
     stylesheets: [
-      fs.readFileSync(require.resolve('tabulator-tables/dist/css/tabulator.min.css'), 'utf8'),
+      {path: require.resolve('tabulator-tables/dist/css/tabulator.min.css')},
       {path: 'styles/*'},
     ],
     javascripts: [
-      /* eslint-disable max-len */
-      fs.readFileSync(require.resolve('idb-keyval/dist/idb-keyval-min.js'), 'utf8'),
-      fs.readFileSync(require.resolve('event-target-shim/umd'), 'utf8'),
-      fs.readFileSync(require.resolve('webtreemap-cdt'), 'utf8'),
-      fs.readFileSync(require.resolve('tabulator-tables/dist/js/tabulator_core.js'), 'utf8'),
-      fs.readFileSync(require.resolve('tabulator-tables/dist/js/modules/sort.js'), 'utf8'),
-      fs.readFileSync(require.resolve('tabulator-tables/dist/js/modules/format.js'), 'utf8'),
-      fs.readFileSync(require.resolve('tabulator-tables/dist/js/modules/resize_columns.js'), 'utf8'),
-      fs.readFileSync(require.resolve('pako/dist/pako_inflate.js'), 'utf-8'),
-      /* eslint-enable max-len */
       buildStrings(),
+      {path: require.resolve('idb-keyval/dist/idb-keyval-min.js')},
+      {path: require.resolve('event-target-shim/umd')},
+      {path: require.resolve('webtreemap-cdt')},
+      {path: require.resolve('tabulator-tables/dist/js/tabulator_core.js')},
+      {path: require.resolve('tabulator-tables/dist/js/modules/sort.js')},
+      {path: require.resolve('tabulator-tables/dist/js/modules/format.js')},
+      {path: require.resolve('tabulator-tables/dist/js/modules/resize_columns.js')},
+      {path: require.resolve('pako/dist/pako_inflate.js')},
       {path: '../../lighthouse-viewer/app/src/deps-for-treemap.js', rollup: true},
       {path: '../../dist/report/treemap.js'},
       {path: 'src/**/*'},
