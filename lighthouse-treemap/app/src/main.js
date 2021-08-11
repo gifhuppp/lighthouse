@@ -11,14 +11,6 @@
 
 /* globals webtreemap strings Tabulator Cell Row */
 
-import 'idb-keyval/dist/idb-keyval-min.js';
-import 'event-target-shim/umd';
-import 'webtreemap-cdt';
-import 'tabulator-tables/dist/js/tabulator_core.js';
-import 'tabulator-tables/dist/js/modules/sort.js';
-import 'tabulator-tables/dist/js/modules/format.js';
-import 'tabulator-tables/dist/js/modules/resize_columns.js';
-import 'pako/dist/pako_inflate.js';
 import {TreemapUtil} from './util.js';
 import {DragAndDrop} from '../../../lighthouse-viewer/app/src/drag-and-drop.js';
 import {GithubApi} from '../../../lighthouse-viewer/app/src/github-api.js';
