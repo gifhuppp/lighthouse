@@ -97,7 +97,7 @@
     "@build-tracker/cli": "^1.0.0-beta.15",
     "@firebase/app-types": "0.3.1",
     "@firebase/auth-types": "0.3.2",
-    "@firebase/util": "0.2.1",
+    "@firebase/util": "0.3.4",
     "@rollup/plugin-alias": "^3.1.2",
     "@rollup/plugin-commonjs": "^20.0.0",
     "@rollup/plugin-dynamic-import-vars": "^1.1.1",
