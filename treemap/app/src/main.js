@@ -3,7 +3,6 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
-'use strict';
 
 /* eslint-env browser */
 
@@ -15,6 +14,8 @@ import {GithubApi} from '../../../viewer/app/src/github-api.js';
 import {I18n} from '../../../report/renderer/i18n.js';
 import {TextEncoding} from '../../../report/renderer/text-encoding.js';
 import {Logger} from '../../../report/renderer/logger.js';
+
+/** @typedef {LH.Treemap.Node & {dom?: HTMLElement}} NodeWithElement */
 
 const DUPLICATED_MODULES_IGNORE_THRESHOLD = 1024;
 const DUPLICATED_MODULES_IGNORE_ROOT_RATIO = 0.01;
@@ -74,7 +75,7 @@ class TreemapViewer {
     /** @type {WeakMap<LH.Treemap.Node, LH.Treemap.NodePath>} */
     this.nodeToPathMap = new WeakMap();
 
-    this.documentUrl = new URL(options.lhr.requestedUrl);
+    this.documentUrl = new URL(options.lhr.finalUrl);
     this.el = el;
     this.getHueForD1NodeName = TreemapUtil.stableHasher(TreemapUtil.COLOR_HUES);
 
@@ -440,7 +441,7 @@ class TreemapViewer {
       if (node.children) return;
 
       const depthOneNode = this.nodeToDepthOneNodeMap.get(node);
-      const bundleNode = depthOneNode && depthOneNode.children ? depthOneNode : undefined;
+      const bundleNode = depthOneNode?.children ? depthOneNode : undefined;
 
       let name;
       if (bundleNode) {
@@ -759,7 +760,9 @@ class LighthouseTreemap {
     TreemapUtil.find('.treemap-placeholder').classList.add('hidden');
     TreemapUtil.find('main').classList.remove('hidden');
 
-    const i18n = new I18n(options.lhr.configSettings.locale, {
+    const locale = options.lhr.configSettings.locale;
+    document.documentElement.lang = locale;
+    const i18n = new I18n(locale, {
       // Set missing renderer strings to default (english) values.
       ...TreemapUtil.UIStrings,
       // `strings` is generated in build/build-treemap.js
@@ -801,7 +804,7 @@ class LighthouseTreemap {
     let lhr = null;
     if (json && typeof json === 'object') {
       for (const maybeLhr of [json, json.lhr, json.lighthouseResult]) {
-        if (maybeLhr && maybeLhr.audits && typeof maybeLhr.audits === 'object') {
+        if (maybeLhr?.audits && typeof maybeLhr.audits === 'object') {
           lhr = maybeLhr;
           break;
         }

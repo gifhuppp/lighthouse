@@ -4,22 +4,16 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
-import {jest} from '@jest/globals';
+import jestMock from 'jest-mock';
 import {FunctionComponent} from 'preact';
 import {act, render} from '@testing-library/preact';
 
-import {FlowResultContext} from '../src/util';
+import {FlowResultContext, OptionsContext} from '../src/util';
 import {I18nProvider} from '../src/i18n/i18n';
+import {Topbar, saveHtml} from '../src/topbar';
 
-const mockSaveFile = jest.fn();
-jest.unstable_mockModule('../../../report/renderer/api.js', () => ({
-  saveFile: mockSaveFile,
-}));
-
-let Topbar: typeof import('../src/topbar').Topbar;
-beforeAll(async () => {
-  Topbar = (await import('../src/topbar')).Topbar;
-});
+const mockSaveFile = jestMock.fn();
+const defaultSaveFile = saveHtml.saveFile;
 
 const flowResult = {
   name: 'User flow',
@@ -31,19 +25,29 @@ const flowResult = {
 } as any;
 
 let wrapper: FunctionComponent;
+let options: LH.FlowReportOptions;
 
-beforeEach(() => {
+before(() => {
   mockSaveFile.mockReset();
+  options = {};
   wrapper = ({children}) => (
-    <FlowResultContext.Provider value={flowResult}>
-      <I18nProvider>
-        {children}
-      </I18nProvider>
-    </FlowResultContext.Provider>
+    <OptionsContext.Provider value={options}>
+      <FlowResultContext.Provider value={flowResult}>
+        <I18nProvider>
+          {children}
+        </I18nProvider>
+      </FlowResultContext.Provider>
+    </OptionsContext.Provider>
   );
 });
 
+after(() => {
+  saveHtml.saveFile = defaultSaveFile;
+});
+
 it('save button opens save dialog for HTML file', async () => {
+  saveHtml.saveFile = mockSaveFile;
+  options = {getReportHtml: () => '<html></html>'};
   const root = render(<Topbar onMenuClick={() => {}}/>, {wrapper});
 
   const saveButton = root.getByText('Save');
@@ -51,8 +55,19 @@ it('save button opens save dialog for HTML file', async () => {
 
   expect(mockSaveFile).toHaveBeenCalledWith(
     expect.any(Blob),
-    'User-flow_2021-09-14_22-24-22'
+    'User-flow_2021-09-14_22-24-22.html'
   );
+});
+
+it('provides save as gist option if defined', async () => {
+  const saveAsGist = jestMock.fn();
+  options = {saveAsGist};
+  const root = render(<Topbar onMenuClick={() => {}}/>, {wrapper});
+
+  const saveButton = root.getByText('Save as Gist');
+  saveButton.click();
+
+  expect(saveAsGist).toHaveBeenCalledWith(flowResult);
 });
 
 it('toggles help dialog', async () => {
